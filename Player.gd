@@ -4,7 +4,7 @@ export var speed = 400
 var screen_size
 
 func _ready():
-	
+	hide()
 	screen_size = get_viewport_rect().size
 	
 func _process(delta):
@@ -28,6 +28,7 @@ func _process(delta):
 	position += velocity * delta
 	position.x = clamp(position.x, 50, screen_size.x)
 	position.y = clamp(position.y, 50, screen_size.y)
+
 	
 	if velocity.x != 0:
 		get_node("AnimatedSprite").animation = "right"
