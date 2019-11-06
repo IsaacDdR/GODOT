@@ -1,4 +1,5 @@
 extends Area2D
+signal hit 
 
 export var speed = 400
 var screen_size
@@ -39,15 +40,13 @@ func _process(delta):
 		get_node("AnimatedSprite").animation = "up"
 		get_node("AnimatedSprite").flip_v = velocity.y > 0 
 		
+func _on_Player_body_entered(body):
+	hide()
+	emit_signal("hit")
+	get_node("CollisionShape2D").set_deffered("disabled", true)
 	
-		
-	
-	
-		 
-		
-
-
-	
-	
-
+func start(pos):
+	position = pos 
+	show()
+	get_node("CollisionShape2D").disabled = false
 	
