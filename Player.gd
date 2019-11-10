@@ -27,8 +27,8 @@ func _process(delta):
 		get_node("AnimatedSprite").stop()
 	
 	position += velocity * delta
-	position.x = clamp(position.x, 50, screen_size.x)
-	position.y = clamp(position.y, 50, screen_size.y)
+	position.x = clamp(position.x, 0, screen_size.x)
+	position.y = clamp(position.y, 0, screen_size.y)
 
 	
 	if velocity.x != 0:
@@ -39,11 +39,13 @@ func _process(delta):
 	elif velocity.y != 0:
 		get_node("AnimatedSprite").animation = "up"
 		get_node("AnimatedSprite").flip_v = velocity.y > 0 
+
+
 		
 func _on_Player_body_entered(body):
 	hide()
 	emit_signal("hit")
-	get_node("CollisionShape2D").set_deffered("disabled", true)
+	$"CollisionShape2D".set_deferred("disabled", true)
 	
 func start(pos):
 	position = pos 
@@ -51,11 +53,3 @@ func start(pos):
 	get_node("CollisionShape2D").disabled = false
 	
 
-func game_over():
-	$ScoreTimer.stop()
-	$MobTimer.stop()
-	
-func new_game():
-	score = 0
-	$Player.start($StartPosition.position)
-	$ScoreTimer.start()
